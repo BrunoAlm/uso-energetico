@@ -1,0 +1,20 @@
+1º mês:
+    • Elaboração do plano de projeto e definição dos objetivos e metas;
+    • Estudo de viabilidade e pesquisa sobre o uso eficiente de energia residencial;
+    • Escolha da plataforma de desenvolvimento (Flutter) e aprendizado das ferramentas necessárias.
+2º e 3º mês:
+    • Desenvolvimento da arquitetura do software e criação da interface gráfica;
+    • Implementação da coleta de dados dos usuários e armazenamento em banco de dados;
+    • Desenvolvimento das funcionalidades básicas do software.
+4º e 5º mês:
+    • Implementação de algoritmos para análise dos dados coletados;
+    • Desenvolvimento de recomendações e soluções energéticas personalizadas para cada usuário;
+    • Testes e validação das funcionalidades do software.
+6º e 7º mês:
+    • Elaboração da documentação e manual de usuário;
+    • Melhorias e correções de bugs;
+    • Preparação para a entrega final do projeto.
+8º mês:
+    • Entrega final do software;
+    • Apresentação e avaliação do projeto para o orientador e comissão avaliadora;
+    • Encerramento do estágio.
