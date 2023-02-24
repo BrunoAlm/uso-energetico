@@ -10,7 +10,15 @@ class AppWidget extends StatelessWidget {
       title: 'Meu App',
       theme: ThemeData(
         useMaterial3: true,
-        colorSchemeSeed: Colors.indigo,
+        colorSchemeSeed: const Color(0xfffff7aa),
+        elevatedButtonTheme: ElevatedButtonThemeData(
+          style: ElevatedButton.styleFrom(
+            padding: const EdgeInsets.symmetric(
+              horizontal: 40,
+              vertical: 25,
+            ),
+          ),
+        ),
       ),
       routeInformationParser: Modular.routeInformationParser,
       routerDelegate: Modular.routerDelegate,

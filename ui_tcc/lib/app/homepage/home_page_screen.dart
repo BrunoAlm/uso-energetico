@@ -12,11 +12,13 @@ class _HomePageState extends State<HomePage> {
   @override
   void initState() {
     Future.delayed(
-        const Duration(milliseconds: 0),
-        () => showDialog(
-            context: context,
-            useSafeArea: true,
-            builder: (BuildContext context) => const ExplanationDialog()));
+      const Duration(milliseconds: 0),
+      () => showDialog(
+        context: context,
+        useSafeArea: true,
+        builder: (BuildContext context) => const ExplanationDialog(),
+      ),
+    );
     super.initState();
   }
 
@@ -24,33 +26,82 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text('Home Page'),
+        title: Text("Dados para o cálculo",
+            style: Theme.of(context).textTheme.titleLarge),
         centerTitle: true,
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            const Center(child: Text("Ue carai")),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                const CustomTextFormField(
-                  hintText: 'Leitura Atual',
-                  maxWidth: 100.0,
-                ),
-                const SizedBox(width: 10),
-                const CustomTextFormField(
-                  hintText: 'Leitura anterior',
-                  maxWidth: 100.0,
-                ),
-              ],
-            ),
+          children: const [
+            LeituraDeEnergia(),
           ],
         ),
       ),
+    );
+  }
+}
+
+// LEITURA DE ENERGIA
+class LeituraDeEnergia extends StatefulWidget {
+  const LeituraDeEnergia({Key? key}) : super(key: key);
+
+  @override
+  State<LeituraDeEnergia> createState() => _LeituraDeEnergiaState();
+}
+
+class _LeituraDeEnergiaState extends State<LeituraDeEnergia> {
+  final kw_atualEC = TextEditingController();
+  final kw_anteriorEC = TextEditingController();
+  final kw_valorEC = TextEditingController();
+
+  @override
+  void dispose() {
+    kw_atualEC;
+    kw_anteriorEC;
+    kw_valorEC;
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      mainAxisAlignment: MainAxisAlignment.start,
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        Text(
+          "Leitura de energia",
+          style: Theme.of(context).textTheme.titleLarge,
+        ),
+        const SizedBox(height: 10),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: [
+            CustomTextFormField(
+              hintText: 'Atual KW/h',
+              maxWidth: 120.0,
+              controller: kw_atualEC,
+            ),
+            const SizedBox(width: 10),
+            CustomTextFormField(
+              hintText: 'Anterior KW/h',
+              maxWidth: 140.0,
+              controller: kw_anteriorEC,
+            ),
+          ],
+        ),
+        const SizedBox(height: 10),
+        CustomTextFormField(
+          hintText: 'Valor por KW/h',
+          maxWidth: 160.0,
+          controller: kw_valorEC,
+        ),
+        const SizedBox(height: 20),
+        ElevatedButton(
+          onPressed: () {},
+          child: const Text("Calcular"),
+        ),
+      ],
     );
   }
 }

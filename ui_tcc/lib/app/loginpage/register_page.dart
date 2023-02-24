@@ -7,7 +7,7 @@ class RegisterPage extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       body: const Center(
-        child: Text('Login Page, tem que ver qual forma de login vai ser'),
+        child: Text('Register Page'),
       ),
       floatingActionButton: FloatingActionButton.extended(
         onPressed: Modular.to.pop,

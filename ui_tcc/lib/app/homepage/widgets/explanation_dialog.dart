@@ -12,18 +12,14 @@ class ExplanationDialog extends StatelessWidget {
       content: Column(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.start,
-        children: [
-          const Text("Para o cálculo é necessário as seguintes informações:"),
-          const SizedBox(height: 10),
-          const Text("1. A leitura atual do medidor de energia."),
-          const SizedBox(height: 10),
-          const Text("2. A leitura anterior do medidor de energia."),
-          const SizedBox(height: 10),
-          const Text(
-              "3. O período de tempo entre as leituras (geralmente um mês)."),
-          const SizedBox(height: 10),
-          const Text(
-              "4. O valor do kWh determinado pela distribuidora de energia."),
+        children: const [
+          Text("Para o cálculo é necessário as seguintes informações:"),
+          SizedBox(height: 10),
+          Text("1. A leitura atual do medidor de energia."),
+          SizedBox(height: 10),
+          Text("2. A leitura anterior do medidor de energia."),
+          SizedBox(height: 10),
+          Text("3. O valor do kWh determinado pela distribuidora de energia."),
         ],
       ),
       actions: [
