@@ -54,6 +54,7 @@ class _LoginPageState extends State<LoginPage> {
                   hintText: 'Senha',
                   controller: senhaEC,
                 ),
+                const SizedBox(height: 5),
                 Align(
                   alignment: Alignment.centerRight,
                   child: TextButton(
@@ -65,13 +66,13 @@ class _LoginPageState extends State<LoginPage> {
                 ElevatedButton(
                   onPressed: () {
                     // logica de validar o usuário e senha
-                    if (senhaEC.value.text == 'admin' &&
-                        usuarioEC.value.text == 'admin') {
-                      Modular.to.pushNamed('/home/');
-                    } else {
-                      print(
-                          'senha:${senhaEC.value.text} usuário:${usuarioEC.value.text} ');
-                    }
+                    // if (senhaEC.value.text == 'admin' &&
+                    //     usuarioEC.value.text == 'admin') {
+                    // } else {
+                    //   print(
+                    //       'senha:${senhaEC.value.text} usuário:${usuarioEC.value.text} ');
+                    // }
+                    Modular.to.pushNamed('/home/');
 
                     // se der certo faz push pra /home
                     // se der erro mostra popup de usuário e/ou senha incorretos

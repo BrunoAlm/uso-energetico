@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:uitcc/app/homepage/widgets/explanation_dialog.dart';
+import 'package:uitcc/app/homepage/widgets/result_dialog.dart';
 import 'package:uitcc/app/shared/widgets/custom_text_form_field.dart';
 
 class HomePage extends StatefulWidget {
@@ -51,15 +52,42 @@ class LeituraDeEnergia extends StatefulWidget {
 }
 
 class _LeituraDeEnergiaState extends State<LeituraDeEnergia> {
-  final kw_atualEC = TextEditingController();
-  final kw_anteriorEC = TextEditingController();
-  final kw_valorEC = TextEditingController();
+  final kwAtualEC = TextEditingController();
+  final kwAnteriorEC = TextEditingController();
+  final kwValorEC = TextEditingController();
+  static const int periodo = 30;
+  bool camposCorretos = false;
+  double valorAPagar = 0.0;
+
+  double _calculaConsumo(
+    double leituraAtual,
+    double leituraAnterior,
+    int diasDoPeriodo,
+    double valorDoKwh,
+  ) {
+    // cálculo do consumo em kWh
+    double consumo = leituraAtual - leituraAnterior;
+    print('Consumo: $consumo kWh');
+
+    // cálculo do consumo diário em kWh
+    double consumoDiario = consumo / diasDoPeriodo;
+    print('Consumo diário: $consumoDiario kWh');
+
+    // cálculo do consumo mensal em kWh
+    double consumoMensal = consumoDiario * 30; // considerando um mês de 30 dias
+    print('Consumo mensal: $consumoMensal kWh');
+
+    // cálculo do valor a ser pago na conta de energia elétrica
+    double valorAPagar = consumoMensal * valorDoKwh;
+    print('Valor a pagar: R\$ $valorAPagar');
+    return valorAPagar;
+  }
 
   @override
   void dispose() {
-    kw_atualEC;
-    kw_anteriorEC;
-    kw_valorEC;
+    kwAtualEC;
+    kwAnteriorEC;
+    kwValorEC;
     super.dispose();
   }
 
@@ -80,13 +108,13 @@ class _LeituraDeEnergiaState extends State<LeituraDeEnergia> {
             CustomTextFormField(
               hintText: 'Atual KW/h',
               maxWidth: 120.0,
-              controller: kw_atualEC,
+              controller: kwAtualEC,
             ),
             const SizedBox(width: 10),
             CustomTextFormField(
               hintText: 'Anterior KW/h',
               maxWidth: 140.0,
-              controller: kw_anteriorEC,
+              controller: kwAnteriorEC,
             ),
           ],
         ),
@@ -94,13 +122,55 @@ class _LeituraDeEnergiaState extends State<LeituraDeEnergia> {
         CustomTextFormField(
           hintText: 'Valor por KW/h',
           maxWidth: 160.0,
-          controller: kw_valorEC,
+          controller: kwValorEC,
         ),
         const SizedBox(height: 20),
         ElevatedButton(
-          onPressed: () {},
+          onPressed: () {
+            double leituraAtual = 0.0;
+            double leituraAnterior = 0.0;
+            double valorDoKwh = 0.0;
+            try {
+              leituraAtual = double.parse(kwAtualEC.value.text);
+              leituraAnterior = double.parse(kwAnteriorEC.value.text);
+              valorDoKwh = double.parse(kwValorEC.value.text);
+              camposCorretos = true;
+              print(camposCorretos);
+            } catch (e) {
+              print('aa');
+            }
+
+            if (camposCorretos) {
+              setState(() {});
+              valorAPagar = _calculaConsumo(
+                leituraAtual,
+                leituraAnterior,
+                periodo,
+                valorDoKwh,
+              );
+              showDialog(
+                context: context,
+                builder: (context) => ResultDialog(
+                  leituraAtual: leituraAtual,
+                  leituraAnterior: leituraAnterior,
+                  valorDoKwh: valorDoKwh,
+                  periodo: periodo,
+                  valorAPagar: valorAPagar,
+                ),
+              );
+            }
+          },
           child: const Text("Calcular"),
         ),
+        const SizedBox(height: 40),
+        camposCorretos
+            ? Center(
+                child: Text(
+                  'Valor a pagar: $valorAPagar',
+                  style: Theme.of(context).textTheme.titleMedium,
+                ),
+              )
+            : const SizedBox(),
       ],
     );
   }
