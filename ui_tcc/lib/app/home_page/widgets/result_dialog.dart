@@ -33,13 +33,28 @@ class ResultDialog extends StatelessWidget {
            periodo,
            valorDoKwh,
            */
-          Text("1. A leitura atual do medidor de energia: $leituraAtual"),
-          const SizedBox(height: 10),
-          Text("2. A leitura anterior do medidor de energia: $leituraAnterior"),
-          const SizedBox(height: 10),
-          Text(
-              "3. O valor do kWh determinado pela distribuidora de energia: $valorDoKwh"),
-          const SizedBox(height: 20),
+          const Text('Entrada:'),
+          Center(
+            child: Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                border: Border.all(color: Colors.black45, width: 2),
+                borderRadius: const BorderRadius.all(Radius.circular(2)),
+              ),
+              padding: const EdgeInsets.all(10),
+              margin: const EdgeInsets.symmetric(vertical: 10),
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text("Leitura atual: $leituraAtual"),
+                  const SizedBox(height: 10),
+                  Text("Leitura anterior: $leituraAnterior"),
+                  const SizedBox(height: 10),
+                  Text("Valor do kWh: $valorDoKwh"),
+                ],
+              ),
+            ),
+          ),
           Center(child: Text("Valor a pagar: $valorAPagar")),
         ],
       ),

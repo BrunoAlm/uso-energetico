@@ -1,0 +1,48 @@
+{
+    // Use o IntelliSense para saber mais sobre os atributos possíveis.
+    // Focalizar para exibir as descrições dos atributos existentes.
+    // Para obter mais informações, acesse: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "name": "energy_control",
+            "cwd": "energy_control",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "energy_control (profile mode)",
+            "cwd": "energy_control",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "energy_control (release mode)",
+            "cwd": "energy_control",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        },
+        {
+            "name": "ui_tcc",
+            "cwd": "ui_tcc",
+            "request": "launch",
+            "type": "dart"
+        },
+        {
+            "name": "ui_tcc (profile mode)",
+            "cwd": "ui_tcc",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "profile"
+        },
+        {
+            "name": "ui_tcc (release mode)",
+            "cwd": "ui_tcc",
+            "request": "launch",
+            "type": "dart",
+            "flutterMode": "release"
+        }
+    ]
+}

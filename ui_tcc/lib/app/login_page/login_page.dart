@@ -47,22 +47,30 @@ class _LoginPageState extends State<LoginPage> {
                   maxWidth: 300,
                   hintText: 'Usuário',
                   controller: usuarioEC,
+                  prefixIcon: const Icon(Icons.person),
                 ),
                 const SizedBox(height: 10),
                 CustomTextFormField(
                   maxWidth: 300,
                   hintText: 'Senha',
                   controller: senhaEC,
+                  prefixIcon: const Icon(Icons.lock),
                 ),
-                const SizedBox(height: 5),
-                Align(
-                  alignment: Alignment.centerRight,
-                  child: TextButton(
-                    onPressed: () => Modular.to.pushNamed('/register'),
-                    child: const Text('Esqueci a senha'),
-                  ),
+                const SizedBox(height: 15),
+                Row(
+                  children: [
+                    TextButton(
+                      onPressed: () => Modular.to.pushNamed('/register'),
+                      child: const Text('Criar uma conta'),
+                    ),
+                    const Spacer(),
+                    TextButton(
+                      onPressed: () => Modular.to.pushNamed('/register'),
+                      child: const Text('Esqueci a senha'),
+                    ),
+                  ],
                 ),
-                const SizedBox(height: 10),
+                const SizedBox(height: 35),
                 ElevatedButton(
                   onPressed: () {
                     // logica de validar o usuário e senha
@@ -79,7 +87,7 @@ class _LoginPageState extends State<LoginPage> {
                   },
                   child: const Text('Entrar'),
                 ),
-                const SizedBox(height: 40),
+                const SizedBox(height: 55),
                 const Text("Usando energia da forma correta"),
               ],
             ),

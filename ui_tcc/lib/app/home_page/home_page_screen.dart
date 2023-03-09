@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:uitcc/app/homepage/widgets/explanation_dialog.dart';
-import 'package:uitcc/app/homepage/widgets/result_dialog.dart';
-import 'package:uitcc/app/shared/widgets/custom_text_form_field.dart';
+import 'package:flutter_modular/flutter_modular.dart';
+
+import '../shared/widgets/custom_text_form_field.dart';
+import 'widgets/explanation_dialog.dart';
+import 'widgets/result_dialog.dart';
 
 class HomePage extends StatefulWidget {
   const HomePage({Key? key}) : super(key: key);
@@ -30,6 +32,12 @@ class _HomePageState extends State<HomePage> {
         title: Text("Dados para o cálculo",
             style: Theme.of(context).textTheme.titleLarge),
         centerTitle: true,
+        leading: IconButton(
+          onPressed: () => Modular.to.pushNamed('profile/'),
+          style: IconButton.styleFrom(
+              side: const BorderSide(color: Colors.black, width: 1)),
+          icon: const Icon(Icons.person),
+        ),
       ),
       body: Padding(
         padding: const EdgeInsets.all(8.0),
@@ -67,19 +75,19 @@ class _LeituraDeEnergiaState extends State<LeituraDeEnergia> {
   ) {
     // cálculo do consumo em kWh
     double consumo = leituraAtual - leituraAnterior;
-    print('Consumo: $consumo kWh');
+    // print('Consumo: $consumo kWh');
 
     // cálculo do consumo diário em kWh
     double consumoDiario = consumo / diasDoPeriodo;
-    print('Consumo diário: $consumoDiario kWh');
+    // print('Consumo diário: $consumoDiario kWh');
 
     // cálculo do consumo mensal em kWh
     double consumoMensal = consumoDiario * 30; // considerando um mês de 30 dias
-    print('Consumo mensal: $consumoMensal kWh');
+    // print('Consumo mensal: $consumoMensal kWh');
 
     // cálculo do valor a ser pago na conta de energia elétrica
     double valorAPagar = consumoMensal * valorDoKwh;
-    print('Valor a pagar: R\$ $valorAPagar');
+    // print('Valor a pagar: R\$ $valorAPagar');
     return valorAPagar;
   }
 
@@ -135,9 +143,9 @@ class _LeituraDeEnergiaState extends State<LeituraDeEnergia> {
               leituraAnterior = double.parse(kwAnteriorEC.value.text);
               valorDoKwh = double.parse(kwValorEC.value.text);
               camposCorretos = true;
-              print(camposCorretos);
+              // print(camposCorretos);
             } catch (e) {
-              print('aa');
+              // print('Preencha os campos');
             }
 
             if (camposCorretos) {
@@ -170,7 +178,11 @@ class _LeituraDeEnergiaState extends State<LeituraDeEnergia> {
                   style: Theme.of(context).textTheme.titleMedium,
                 ),
               )
-            : const SizedBox(),
+            : const SizedBox(height: 40),
+        ElevatedButton(
+          onPressed: () {},
+          child: const Text('Cadastrar dados'),
+        )
       ],
     );
   }

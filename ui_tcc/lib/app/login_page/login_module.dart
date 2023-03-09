@@ -1,7 +1,8 @@
 import 'package:flutter_modular/flutter_modular.dart';
-import 'package:uitcc/app/homepage/home_module.dart';
-import 'package:uitcc/app/loginpage/login_page.dart';
-import 'package:uitcc/app/loginpage/register_page.dart';
+
+import '../home_page/home_module.dart';
+import 'login_page.dart';
+import 'register_page.dart';
 
 class LoginModule extends Module {
   @override
