@@ -42,8 +42,12 @@ class _HomePageState extends State<HomePage> {
       body: Padding(
         padding: const EdgeInsets.all(8.0),
         child: Column(
-          children: const [
-            LeituraDeEnergia(),
+          children: [
+            const LeituraDeEnergia(),
+            ElevatedButton(
+              onPressed: () => Modular.to.navigate('cadastrar_dados'),
+              child: const Text('Cadastrar dados'),
+            )
           ],
         ),
       ),
@@ -179,10 +183,6 @@ class _LeituraDeEnergiaState extends State<LeituraDeEnergia> {
                 ),
               )
             : const SizedBox(height: 40),
-        ElevatedButton(
-          onPressed: () {},
-          child: const Text('Cadastrar dados'),
-        )
       ],
     );
   }
