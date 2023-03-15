@@ -45,7 +45,7 @@ class _HomePageState extends State<HomePage> {
           children: [
             const LeituraDeEnergia(),
             ElevatedButton(
-              onPressed: () => Modular.to.navigate('cadastrar_dados'),
+              onPressed: () => Modular.to.pushNamed('cadastrar_dados'),
               child: const Text('Cadastrar dados'),
             )
           ],

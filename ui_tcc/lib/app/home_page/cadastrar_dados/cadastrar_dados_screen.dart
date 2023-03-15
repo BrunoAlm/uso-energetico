@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:uitcc/app/home_page/cadastrar_dados/equipamentos.dart';
 
 class CadastrarDadosScreen extends StatefulWidget {
   const CadastrarDadosScreen({Key? key}) : super(key: key);
@@ -9,89 +10,105 @@ class CadastrarDadosScreen extends StatefulWidget {
 
 class _CadastrarDadosScreenState extends State<CadastrarDadosScreen> {
   int paginaAtual = 0;
+  final Duration _duration = const Duration(milliseconds: 400);
+  final Curve _curve = Curves.ease;
+
   @override
   Widget build(BuildContext context) {
     PageController _controller = PageController();
     List<Widget> _paginas = [
-      const Page1(),
-      const Page1(),
-      const Page1(),
-      const Page1(),
-      const Page1(),
+      const IntroducaoPorQuePegarDados(),
+      const Page2(),
+      const Page2(),
+      const Page2(),
+      const Page2(),
+      const Page2(),
     ];
     return Scaffold(
+      appBar: AppBar(),
       body: Padding(
-        padding: const EdgeInsets.symmetric(horizontal: 18.0, vertical: 38.0),
-        child: PageView(controller: _controller, children: _paginas),
+        padding: const EdgeInsets.symmetric(horizontal: 38.0, vertical: 38.0),
+        child: PageView(
+          controller: _controller,
+          children: _paginas,
+          scrollDirection: Axis.vertical,
+        ),
       ),
-      floatingActionButtonLocation: FloatingActionButtonLocation.centerFloat,
-      floatingActionButton: Row(
-        mainAxisAlignment: MainAxisAlignment.spaceAround,
-        crossAxisAlignment: CrossAxisAlignment.end,
-        children: [
-          FloatingActionButton.extended(
-            heroTag: 'voltar',
-            onPressed: () {
-              if (paginaAtual > _controller.page!.toInt()) {
-                setState(() {
-                  paginaAtual--;
-                });
-              }
-              print('voltando: ${_controller.page}');
-              _controller.previousPage(
-                duration: const Duration(milliseconds: 300),
-                curve: Curves.easeIn,
-              );
-            },
-            label: const Text('Voltar'),
-          ),
-          SizedBox(
-            height: 40,
-            width: 120,
-            child: ListView.builder(
-              scrollDirection: Axis.horizontal,
-              itemCount: _paginas.length,
-              physics: const NeverScrollableScrollPhysics(),
-              itemBuilder: (BuildContext context, int index) {
-                return Center(
-                  child: Container(
-                    margin: const EdgeInsets.symmetric(horizontal: 4),
-                    height: 10,
-                    width: 10,
-                    decoration: BoxDecoration(
-                      borderRadius: BorderRadius.circular(100),
-                      color:
-                          index == paginaAtual ? Colors.black : Colors.black38,
-                    ),
+      floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
+      floatingActionButton: Padding(
+        padding: const EdgeInsets.only(bottom: 38),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+          crossAxisAlignment: CrossAxisAlignment.end,
+          children: [
+            paginaAtual == 0
+                ? Container()
+                : FloatingActionButton.extended(
+                    heroTag: 'voltar',
+                    onPressed: () {
+                      if (paginaAtual > 0) {
+                        paginaAtual--;
+                        setState(() {});
+                      }
+                      _controller.previousPage(
+                        duration: _duration,
+                        curve: _curve,
+                      );
+                    },
+                    label: const Text('Voltar'),
                   ),
-                );
-              },
+            SizedBox(
+              height: 50,
+              child: Center(
+                child: ListView.builder(
+                  shrinkWrap: true,
+                  scrollDirection: Axis.horizontal,
+                  itemCount: _paginas.length,
+                  physics: const NeverScrollableScrollPhysics(),
+                  itemBuilder: (BuildContext context, int index) {
+                    return Center(
+                      child: Container(
+                        margin: const EdgeInsets.symmetric(horizontal: 4),
+                        height: index == paginaAtual ? 13 : 10,
+                        width: 20,
+                        decoration: BoxDecoration(
+                          borderRadius: BorderRadius.circular(100),
+                          color: index == paginaAtual
+                              ? Theme.of(context).colorScheme.inversePrimary
+                              : Theme.of(context).colorScheme.inverseSurface,
+                        ),
+                      ),
+                    );
+                  },
+                ),
+              ),
             ),
-          ),
-          FloatingActionButton.extended(
-            heroTag: 'proximo',
-            onPressed: () {
-              _controller.nextPage(
-                duration: const Duration(milliseconds: 300),
-                curve: Curves.easeIn,
-              );
-              print('indo: ${_controller.page}');
-              if (paginaAtual <= _controller.page!.toInt() - 1) {
-                setState(() {
-                  paginaAtual++;
-                });
-              }
-            },
-            label: const Text('Próximo'),
-          ),
-        ],
+            paginaAtual == _paginas.length - 1
+                ? FloatingActionButton.extended(
+                    heroTag: 'ok',
+                    onPressed: () {},
+                    label: const Text('OK'),
+                  )
+                : FloatingActionButton.extended(
+                    heroTag: 'proximo',
+                    onPressed: () {
+                      _controller.nextPage(duration: _duration, curve: _curve);
+                      if (paginaAtual < _paginas.length - 1) {
+                        paginaAtual++;
+                        setState(() {});
+                      }
+                    },
+                    label: const Text('Próximo'),
+                  ),
+          ],
+        ),
       ),
     );
   }
 }
 
-class Page1 extends StatelessWidget {
-  const Page1({super.key});
+class IntroducaoPorQuePegarDados extends StatelessWidget {
+  const IntroducaoPorQuePegarDados({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -111,6 +128,157 @@ class Page1 extends StatelessWidget {
         Text(
           'Preencha os dados com a maior precisão possível.',
           style: Theme.of(context).textTheme.labelLarge,
+        ),
+      ],
+    );
+  }
+}
+
+class Page2 extends StatelessWidget {
+  const Page2({super.key});
+
+  @override
+  Widget build(BuildContext context) {
+    return Column(
+      children: [
+        Text(
+          'Quais destes equipamentos você tem em casa?',
+          style: Theme.of(context).textTheme.headlineMedium,
+        ),
+        const SizedBox(height: 40),
+        Column(
+          children: [
+            Row(
+              children: [
+                SizedBox(
+                  width: 100,
+                  child: Text('Equipamento',
+                      style: Theme.of(context).textTheme.labelMedium),
+                ),
+                const SizedBox(width: 20),
+                SizedBox(
+                  width: 70,
+                  child: Text('Quantidade',
+                      style: Theme.of(context).textTheme.labelMedium),
+                ),
+                const SizedBox(width: 20),
+                SizedBox(
+                  width: 90,
+                  child: Text('Dias utilizados',
+                      style: Theme.of(context).textTheme.labelMedium),
+                ),
+                const SizedBox(width: 20),
+                SizedBox(
+                  width: 60,
+                  child: Text('Consumo',
+                      style: Theme.of(context).textTheme.labelMedium),
+                ),
+                const SizedBox(width: 20),
+              ],
+            ),
+            SizedBox(
+              height: 400,
+              child: ListView.builder(
+                itemCount: 5,
+                itemBuilder: (BuildContext context, int index) {
+                  return CustomWidget(
+                    nomeEquipamento: equipamentos[index + 15],
+                  );
+                },
+              ),
+            ),
+          ],
+        ),
+      ],
+    );
+  }
+}
+
+class CustomWidget extends StatefulWidget {
+  final String nomeEquipamento;
+  const CustomWidget({Key? key, required this.nomeEquipamento})
+      : super(key: key);
+
+  @override
+  _CustomWidgetState createState() => _CustomWidgetState();
+}
+
+class _CustomWidgetState extends State<CustomWidget> {
+  int _diaSelecionado = 1;
+  int _quantidade = 1;
+  final TextEditingController _controller = TextEditingController();
+
+  @override
+  Widget build(BuildContext context) {
+    return Row(
+      children: [
+        SizedBox(
+          width: 100,
+          child: Text(
+            widget.nomeEquipamento,
+            style: Theme.of(context).textTheme.titleSmall,
+          ),
+        ),
+        const SizedBox(width: 18),
+        SizedBox(
+          width: 70,
+          child: Center(
+            child: DropdownButton<int>(
+              value: _quantidade,
+              onChanged: (value) {
+                setState(() {
+                  _quantidade = value!;
+                });
+              },
+              menuMaxHeight: 260,
+              itemHeight: 50,
+              items: List.generate(5, (index) {
+                return DropdownMenuItem(
+                  value: index + 1,
+                  child: Text((index + 1).toString()),
+                );
+              }),
+            ),
+          ),
+        ),
+        const SizedBox(width: 18),
+        SizedBox(
+          width: 90,
+          child: Center(
+            child: DropdownButton<int>(
+              value: _diaSelecionado,
+              onChanged: (value) {
+                setState(() {
+                  _diaSelecionado = value!;
+                });
+              },
+              menuMaxHeight: 260,
+              itemHeight: 50,
+              items: List.generate(31, (index) {
+                return DropdownMenuItem(
+                  value: index + 1,
+                  child: Text((index + 1).toString()),
+                );
+              }),
+            ),
+          ),
+        ),
+        const SizedBox(width: 18),
+        SizedBox(
+          width: 70,
+          child: TextField(
+            controller: _controller,
+            keyboardType: TextInputType.number,
+            decoration: const InputDecoration(
+              enabledBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(20.0)),
+              ),
+              focusedBorder: OutlineInputBorder(
+                borderRadius: BorderRadius.all(Radius.circular(20.0)),
+              ),
+              hintText: 'kw/h',
+            ),
+          ),
         ),
       ],
     );
