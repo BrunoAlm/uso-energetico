@@ -18,7 +18,10 @@ jobs:
         with:
           channel: 'stable'
           
-      - name: Install dependencies
+      - name: Entra na pasta ui_tcc
+        run: cd ui_tcc
+
+      - name: Flutter pub get
         run: flutter pub get
 
       - name: Build Web
@@ -26,7 +29,7 @@ jobs:
 
       - name: Deploy
         run: |
-          cd ui_tcc/build/web
+          cd build/web
           git init
           git config --global user.email brunoalmeidadem@gmail.com
           git config --global user.name brunoalm
