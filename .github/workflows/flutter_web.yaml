@@ -19,7 +19,7 @@ jobs:
           channel: 'stable'
           
       - name: Entra na pasta ui_tcc
-        run: cd ui_tcc
+        run: cd ui_tcc/
 
       - name: Flutter pub get
         run: flutter pub get
