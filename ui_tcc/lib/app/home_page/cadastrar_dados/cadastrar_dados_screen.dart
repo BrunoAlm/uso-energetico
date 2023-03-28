@@ -10,7 +10,7 @@ class CadastrarDadosScreen extends StatefulWidget {
 
 class _CadastrarDadosScreenState extends State<CadastrarDadosScreen> {
   int paginaAtual = 0;
-  final Duration _duration = const Duration(milliseconds: 400);
+  final Duration _duration = const Duration(milliseconds: 100);
   final Curve _curve = Curves.ease;
 
   @override
@@ -25,13 +25,18 @@ class _CadastrarDadosScreenState extends State<CadastrarDadosScreen> {
       const Page2(),
     ];
     return Scaffold(
-      appBar: AppBar(),
+      appBar: paginaAtual != 0
+          ? const PreferredSize(
+              preferredSize: Size(0, 0),
+              child: SizedBox(),
+            )
+          : AppBar(),
       body: Padding(
         padding: const EdgeInsets.symmetric(horizontal: 38.0, vertical: 38.0),
         child: PageView(
           controller: _controller,
           children: _paginas,
-          scrollDirection: Axis.vertical,
+          scrollDirection: Axis.horizontal,
         ),
       ),
       floatingActionButtonLocation: FloatingActionButtonLocation.centerDocked,
@@ -139,57 +144,64 @@ class Page2 extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Column(
-      children: [
-        Text(
-          'Quais destes equipamentos você tem em casa?',
-          style: Theme.of(context).textTheme.headlineMedium,
-        ),
-        const SizedBox(height: 40),
-        Column(
-          children: [
-            Row(
-              children: [
-                SizedBox(
-                  width: 100,
-                  child: Text('Equipamento',
-                      style: Theme.of(context).textTheme.labelMedium),
-                ),
-                const SizedBox(width: 20),
-                SizedBox(
-                  width: 70,
-                  child: Text('Quantidade',
-                      style: Theme.of(context).textTheme.labelMedium),
-                ),
-                const SizedBox(width: 20),
-                SizedBox(
-                  width: 90,
-                  child: Text('Dias utilizados',
-                      style: Theme.of(context).textTheme.labelMedium),
-                ),
-                const SizedBox(width: 20),
-                SizedBox(
-                  width: 60,
-                  child: Text('Consumo',
-                      style: Theme.of(context).textTheme.labelMedium),
-                ),
-                const SizedBox(width: 20),
-              ],
-            ),
-            SizedBox(
-              height: 400,
-              child: ListView.builder(
-                itemCount: 5,
-                itemBuilder: (BuildContext context, int index) {
-                  return CustomWidget(
-                    nomeEquipamento: equipamentos[index + 15],
-                  );
-                },
+    return Scaffold(
+      appBar: AppBar(),
+      body: Column(
+        mainAxisAlignment: MainAxisAlignment.start,
+        crossAxisAlignment: CrossAxisAlignment.center,
+        children: [
+          Text(
+            'Quais destes equipamentos você tem em casa?',
+            style: Theme.of(context).textTheme.headlineMedium,
+          ),
+          const SizedBox(height: 40),
+          Column(
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Row(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  SizedBox(
+                    width: 100,
+                    child: Text('Equipamento',
+                        style: Theme.of(context).textTheme.labelLarge),
+                  ),
+                  const SizedBox(width: 20),
+                  SizedBox(
+                    width: 70,
+                    child: Text('Quantidade',
+                        style: Theme.of(context).textTheme.labelLarge),
+                  ),
+                  const SizedBox(width: 20),
+                  SizedBox(
+                    width: 90,
+                    child: Text('Dias utilizados',
+                        style: Theme.of(context).textTheme.labelLarge),
+                  ),
+                  const SizedBox(width: 20),
+                  SizedBox(
+                    width: 60,
+                    child: Text('Consumo',
+                        style: Theme.of(context).textTheme.labelLarge),
+                  ),
+                  const SizedBox(width: 20),
+                ],
               ),
-            ),
-          ],
-        ),
-      ],
+              SizedBox(
+                height: 400,
+                child: ListView.builder(
+                  itemCount: 5,
+                  itemBuilder: (BuildContext context, int index) {
+                    return CustomWidget(
+                      nomeEquipamento: equipamentos[index + 15],
+                    );
+                  },
+                ),
+              ),
+            ],
+          ),
+        ],
+      ),
     );
   }
 }
@@ -211,6 +223,7 @@ class _CustomWidgetState extends State<CustomWidget> {
   @override
   Widget build(BuildContext context) {
     return Row(
+      mainAxisAlignment: MainAxisAlignment.center,
       children: [
         SizedBox(
           width: 100,
@@ -264,21 +277,23 @@ class _CustomWidgetState extends State<CustomWidget> {
           ),
         ),
         const SizedBox(width: 18),
-        SizedBox(
-          width: 70,
-          child: TextField(
-            controller: _controller,
-            keyboardType: TextInputType.number,
-            decoration: const InputDecoration(
-              enabledBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(20.0)),
-              ),
-              focusedBorder: OutlineInputBorder(
-                borderRadius: BorderRadius.all(Radius.circular(20.0)),
-              ),
-              hintText: 'kw/h',
-            ),
-          ),
+        Container(
+          padding: const EdgeInsets.all(8),
+          width: 80,
+          child: const Text('Consumo kw/h'),
+          // child: TextField(
+          //   controller: _controller,
+          //   keyboardType: TextInputType.number,
+          //   decoration: const InputDecoration(
+          //     enabledBorder: OutlineInputBorder(
+          //       borderRadius: BorderRadius.all(Radius.circular(20.0)),
+          //     ),
+          //     focusedBorder: OutlineInputBorder(
+          //       borderRadius: BorderRadius.all(Radius.circular(20.0)),
+          //     ),
+          //     hintText: 'kw/h',
+          //   ),
+          // ),
         ),
       ],
     );
