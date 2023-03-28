@@ -11,7 +11,7 @@ jobs:
 
     steps:
       - name: Entra na pasta ui_tcc
-        run: cd ui_tcc/
+        run: cd ui_tcc
 
       - name: Checkout
         uses: actions/checkout@v3
